@@ -2,7 +2,7 @@ from pydantic import BaseModel, validate_call
 from typing import ClassVar, Callable, overload
 
 from .Task import Task
-from .Utils import Utils
+from .Utils import get_current_time
 
 class TaskManager(BaseModel):
 
@@ -37,7 +37,7 @@ class TaskManager(BaseModel):
         task = cls.filter_task(lambda task:task.id == id)
         old_description = task.description
         task.description = description
-        task.updated_at = Utils.get_current_time()
+        task.updated_at = get_current_time()
         print(f"Updated task {id} from \"{old_description}\" to \"{task.description}\".\n")
     
     @classmethod
@@ -62,7 +62,7 @@ class TaskManager(BaseModel):
         
         old_status = task.status
         task.status = status
-        task.updated_at = Utils.get_current_time()
+        task.updated_at = get_current_time()
         print(f"Updated mark {id} from \"{old_status}\" to \"{task.status}\".\n")
 
     @classmethod

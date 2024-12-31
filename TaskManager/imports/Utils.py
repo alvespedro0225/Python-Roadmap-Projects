@@ -1,9 +1,12 @@
 from datetime import datetime
-from pydantic import BaseModel, validate_call
 
-class Utils(BaseModel):
+# utility functions for code readability
 
-    @staticmethod
-    @validate_call
-    def get_current_time() -> str:
-        return datetime.now().strftime("%d%m%Y, %H%M%S")
+def get_current_time() -> str:
+    return datetime.now().strftime("%d%m%Y, %H%M%S")
+       
+def is_braces(letter:str) -> bool:
+    return letter == "\'" or letter == "\""
+
+def is_space(letter:str) -> bool:
+    return letter == " "
