@@ -11,5 +11,5 @@ class GithubEvent(BaseModel):
     public: bool
     created_at: str
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)

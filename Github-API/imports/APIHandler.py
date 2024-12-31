@@ -13,7 +13,7 @@ class APIHandler(BaseModel):
 
     @classmethod
     @validate_call
-    def get_info(cls, username: str):
+    def get_info(cls, username: str) -> None:
         try:
             response = http_get(f"{cls.BASE_URI}/users/{username}/events")
             response = response.json()
