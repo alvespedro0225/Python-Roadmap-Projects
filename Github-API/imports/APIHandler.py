@@ -9,23 +9,23 @@ from .Event import GithubEvent
 
 class APIHandler(BaseModel):
 
-    BASE_URI:ClassVar[str] = "https://api.github.com"
+    BASE_URI: ClassVar[str] = "https://api.github.com"
 
     @classmethod
     @validate_call
-    def get_info(cls, username:str):
+    def get_info(cls, username: str):
         try:
             response = http_get(f"{cls.BASE_URI}/users/{username}/events")
             response = response.json()
             for event_json in response:
                 event = GithubEvent(
-                    id = event_json["id"],
-                    type = event_json["type"],
-                    actor = event_json["actor"],
-                    repo = event_json["repo"],
-                    public = event_json["public"],
-                    created_at = event_json["created_at"]
-                    )
+                    id=event_json["id"],
+                    type=event_json["type"],
+                    actor=event_json["actor"],
+                    repo=event_json["repo"],
+                    public=event_json["public"],
+                    created_at=event_json["created_at"],
+                )
 
                 pprint(event)
                 print()
