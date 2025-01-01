@@ -10,6 +10,3 @@ class GithubEvent(BaseModel):
     repo: dict[str, Any]
     public: bool
     created_at: str
-
-    def __init__(self, **kwargs) -> None:
-        super().__init__(**kwargs)
