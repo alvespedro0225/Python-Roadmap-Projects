@@ -30,7 +30,7 @@ class TaskManager(BaseModel):
                 task = Task(description=task_or_description, status=status)
                 cls.task_list.append(task)
                 print(
-                    f'Added new task with description "{task.description}" and ID {task.id}.\n'
+                    f'Added new task with description "{task.description}", status {task.status} and ID {task.id}.\n'
                 )
             else:
                 print(
@@ -41,10 +41,9 @@ class TaskManager(BaseModel):
     @validate_call
     def update_task(cls, id: int, description: str) -> None:
         task = cls.filter_task(lambda task: task.id == id)[0]
-        old_description = task.description
         task.description = description
         task.updated_at = get_current_time()
-        print(f'Updated task {id} from "{old_description}" to "{task.description}".\n')
+        print(f'Updated task {id} to "{task.description}".\n')
 
     @classmethod
     @validate_call
@@ -58,18 +57,14 @@ class TaskManager(BaseModel):
     def update_status(cls, id: int, status: str) -> None:
         task = cls.filter_task(lambda task: task.id == id)[0]
         status = status.lower()
-        if task.status == status:
-            print(f'Current status of task {id} already is "{status}".\n')
-            return
 
         if status not in cls.possible_status:
             print(f'Invalid status "{status}."\n')
             return
 
-        old_status = task.status
         task.status = status
         task.updated_at = get_current_time()
-        print(f'Updated task {id} from "{old_status}" to "{task.status}".\n')
+        print(f'Updated task {id} to "{task.status}".\n')
 
     @classmethod
     @validate_call

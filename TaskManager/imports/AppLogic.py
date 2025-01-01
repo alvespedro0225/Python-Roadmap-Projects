@@ -30,7 +30,7 @@ class AppLogic(BaseModel):
         try:
             id = int(id)
         except ValueError:
-            print(f'"{argv[1]}" is not a valid number. Please try again.\n')
+            print(f'"{argv[1]}" is not a valid number.\n')
             return
 
         TaskManager.update_task(id, description)
@@ -43,7 +43,7 @@ class AppLogic(BaseModel):
         try:
             id = int(id)
         except ValueError:
-            print(f'"{argv[1]}" is not a valid number. Please try again.\n')
+            print(f'"{argv[1]}" is not a valid number.\n')
             return
 
         TaskManager.delete_task(id)
@@ -57,7 +57,7 @@ class AppLogic(BaseModel):
         try:
             id = int(id)
         except ValueError:
-            print(f'"{argv[1]}" is not a valid number. Please try again.\n')
+            print(f'"{argv[1]}" is not a valid number.\n')
             return
 
         TaskManager.update_status(id, status)

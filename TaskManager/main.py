@@ -12,17 +12,17 @@ if __name__ == "__main__":
     print(
         """
 Choose an action. Possible:
-add <description>,
-update <id> <description> <mark*>,
+add <description> <status*>,
+update <id> <description> <status*>,
 delete <id>,
-mark <id> <mark>,
-list <mark*>,
+status <id> <status>,
+list <status*>,
 clear,
 reset,
 quit
 
 * = optional
-marks = "todo", "ongoing", "completed"
+status = "todo", "ongoing", "completed"
         """
     )
     while True:
@@ -63,4 +63,4 @@ marks = "todo", "ongoing", "completed"
                 word += argv[index]
                 if index < argc:
                     word += ", "
-            print(f'Missing arguments, please try again. Passed "{word}".\n')
+            print(f'Missing arguments. Passed "{word}".\n')
