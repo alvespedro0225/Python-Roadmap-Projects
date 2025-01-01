@@ -1,4 +1,4 @@
-#from pydantic import
+# from pydantic import
 
 from imports.FileManager import FileManager
 from imports.Task import Task
@@ -24,7 +24,7 @@ quit
 * = optional
 marks = "todo", "ongoing", "completed"
         """
-        )
+    )
     while True:
 
         while True:
@@ -36,10 +36,10 @@ marks = "todo", "ongoing", "completed"
                 continue
 
             argv = InputValidator.validate_input(user_input)
-            
+
             if argv:
                 break
-        
+
         argc = len(argv)
         actions = {
             "add": AppLogic.add,
@@ -49,20 +49,18 @@ marks = "todo", "ongoing", "completed"
             "list": AppLogic.list_tasks,
             "quit": AppLogic.quit_app,
             "clear": AppLogic.clear,
-            "reset": AppLogic.reset            
-            }
-        
+            "reset": AppLogic.reset,
+        }
+
         try:
             action = actions[argv[0]]
             action(argv, argc)
         except KeyError:
-            print(f"Wrong arguments provided \"{argv[0]}\".\n")
+            print(f'Wrong arguments provided "{argv[0]}".\n')
         except IndexError:
             word = ""
             for index in range(argc):
                 word += argv[index]
                 if index < argc:
-                    word+= ", "
-            print(f"Missing arguments, please try again. Passed \"{word}\".\n")
-        
-
+                    word += ", "
+            print(f'Missing arguments, please try again. Passed "{word}".\n')
