@@ -7,8 +7,8 @@ from imports.AppLogic import AppLogic
 
 
 if __name__ == "__main__":
+    Task.get_task_id()
     FileManager.get_file_data()
-    Task.get_current_id()
     print(
         """
 Choose an action. Possible:
@@ -42,14 +42,27 @@ marks = "todo", "ongoing", "completed"
         
         argc = len(argv)
         actions = {
-            "add": AppLogic.add(argv, argc),
-            "update": AppLogic.update(argv, argc),
-            "delete": AppLogic.delete(argv, argc),
-            "status": AppLogic.status(argv, argc),
-            "list": AppLogic.list_tasks(argv, argc),
-            "quit": AppLogic.quit_app(argv, argc),
-            "clear": AppLogic.clear(argv, argc),
-            "reset": AppLogic.clear(argv, argc)            
+            "add": AppLogic.add,
+            "update": AppLogic.update,
+            "delete": AppLogic.delete,
+            "status": AppLogic.status,
+            "list": AppLogic.list_tasks,
+            "quit": AppLogic.quit_app,
+            "clear": AppLogic.clear,
+            "reset": AppLogic.reset            
             }
         
+        try:
+            action = actions[argv[0]]
+            action(argv, argc)
+        except KeyError:
+            print(f"Wrong arguments provided \"{argv[0]}\".\n")
+        except IndexError:
+            word = ""
+            for index in range(argc):
+                word += argv[index]
+                if index < argc:
+                    word+= ", "
+            print(f"Missing arguments, please try again. Passed \"{word}\".\n")
         
+

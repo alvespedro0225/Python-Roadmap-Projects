@@ -1,6 +1,7 @@
 from pydantic import BaseModel, validate_call
-from typing import ClassVar, Any
+from typing import ClassVar, Any, Optional
 from pathlib import Path
+import json
 
 from .Utils import get_current_time
 
@@ -9,8 +10,8 @@ class Task(BaseModel):
 
     FILE_PATH:ClassVar[Path] = Path(__file__).parent / "id.txt"
     _current_id:ClassVar[int]
-    id:int
-    _created_at:str = get_current_time()
+    id:Optional[int] = None
+    created_at:str = get_current_time()
     updated_at:str = get_current_time()
     status:str
     description:str
@@ -18,23 +19,12 @@ class Task(BaseModel):
 
     def __init__(self, description, status, **kwargs) -> None:
         super().__init__(
-            id = self.get_id(),
             description = description,
             status = status,
             **kwargs
             )
-
-    @classmethod
-    def get_current_id(cls) -> None:
-        try:
-            with open(cls.FILE_PATH, "r") as file:
-                id = file.read()
-                cls._current_id = int(id)
-        
-        except FileNotFoundError:
-            with open(cls.FILE_PATH, "w") as file:
-                file.write("0")
-                cls._current_id = 0
+        if not self.id:
+            self.id = self.get_id()
 
     @classmethod
     def get_id(cls) -> int:
@@ -49,3 +39,23 @@ class Task(BaseModel):
     @classmethod
     def reset(cls) -> None:
         cls._current_id = 0
+
+    def to_JSON(self):
+        return json.dumps(
+            self,
+            default=lambda o: o.__dict__,
+            sort_keys=True,
+            indent=4
+        )
+    
+    @classmethod
+    def get_task_id(cls) -> None:
+        try:
+            with open(cls.FILE_PATH, "r") as file:
+                id = file.read()
+                cls._current_id = int(id)
+        
+        except FileNotFoundError:
+            with open(cls.FILE_PATH, "w") as file:
+                file.write("0")
+                cls._current_id = 0

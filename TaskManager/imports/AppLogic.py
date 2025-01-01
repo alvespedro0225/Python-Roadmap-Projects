@@ -70,12 +70,14 @@ class AppLogic(BaseModel):
             tasks = TaskManager.task_list
             for task in tasks:
                 print(task)
+            print()
         else:
             
             filter_condition = argv[1]
             tasks = TaskManager.filter_task(lambda task:task.status == filter_condition)
             for task in tasks:
                 print(task)
+            print()
 
     @staticmethod
     @validate_call

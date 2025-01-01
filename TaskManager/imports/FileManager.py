@@ -9,6 +9,7 @@ from .TaskManager import TaskManager
 class FileManager(BaseModel):
 
     FILE_PATH:ClassVar[Path] = Path(__file__).parent / "tasks.json"
+    ID_PATH:ClassVar[Path] = Path(__file__).parent / "id.txt"
 
     
     @classmethod
@@ -22,7 +23,7 @@ class FileManager(BaseModel):
                             description=task_json["description"],
                             status=task_json["status"],
                             id=task_json["id"],
-                            _created_at=task_json["_created_at"],
+                            created_at=task_json["created_at"],
                             updated_at = task_json["updated_at"]
                         )
                         TaskManager.add_task(task)
@@ -38,6 +39,9 @@ class FileManager(BaseModel):
     def write_to_file(cls) -> None:
         with open(cls.FILE_PATH, "w") as file:
             file.write("[")
-            for task in TaskManager.task_list:
-                json.dump(task, file)
+            tasks = TaskManager.task_list
+            for task in tasks:
+                file.write(task.to_JSON())
+                if task != tasks[-1]:
+                    file.write(",")
             file.write("]")

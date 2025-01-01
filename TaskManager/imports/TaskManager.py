@@ -63,7 +63,7 @@ class TaskManager(BaseModel):
         old_status = task.status
         task.status = status
         task.updated_at = get_current_time()
-        print(f"Updated mark {id} from \"{old_status}\" to \"{task.status}\".\n")
+        print(f"Updated task {id} from \"{old_status}\" to \"{task.status}\".\n")
 
     @classmethod
     @validate_call
