@@ -48,7 +48,7 @@ class InputValidator(BaseModel):
 
         except IndexError:
 
-            print('Invalid input "{word}" doesn\'t have closing {word[0]}\n')
+            print(f'Invalid input "{word}" doesn\'t have closing {word[0]}\n')
             return None
 
         return argv

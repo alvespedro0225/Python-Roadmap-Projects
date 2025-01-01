@@ -26,16 +26,21 @@ class TaskManager(BaseModel):
         if isinstance(task_or_description, Task):
             cls.task_list.append(task_or_description)
         else:
-            task = Task(description=task_or_description, status=status)
-            cls.task_list.append(task)
-            print(
-                f'Added new task with description "{task.description}" and ID {task.id}.\n'
-            )
+            if status in cls.possible_status:
+                task = Task(description=task_or_description, status=status)
+                cls.task_list.append(task)
+                print(
+                    f'Added new task with description "{task.description}" and ID {task.id}.\n'
+                )
+            else:
+                print(
+                    f'Status "{status}" is not a valid status. Valid: {cls.possible_status}\n'
+                )
 
     @classmethod
     @validate_call
     def update_task(cls, id: int, description: str) -> None:
-        task = cls.filter_task(lambda task: task.id == id)
+        task = cls.filter_task(lambda task: task.id == id)[0]
         old_description = task.description
         task.description = description
         task.updated_at = get_current_time()
@@ -44,21 +49,21 @@ class TaskManager(BaseModel):
     @classmethod
     @validate_call
     def delete_task(cls, id: int) -> None:
-        task = cls.filter_task(lambda task: task.id == id)
+        task = cls.filter_task(lambda task: task.id == id)[0]
         cls.task_list.remove(task)
         print(f"Deleted task {id}.\n")
 
     @classmethod
     @validate_call
     def update_status(cls, id: int, status: str) -> None:
-        task = cls.filter_task(lambda task: task.id == id)
+        task = cls.filter_task(lambda task: task.id == id)[0]
         status = status.lower()
         if task.status == status:
             print(f'Current status of task {id} already is "{status}".\n')
             return
 
         if status not in cls.possible_status:
-            print(f'Invalid status "{status}"\n.')
+            print(f'Invalid status "{status}."\n')
             return
 
         old_status = task.status
@@ -78,5 +83,5 @@ class TaskManager(BaseModel):
 
     @classmethod
     @validate_call
-    def filter_task(cls, filter_condition: Callable[[Task], bool]) -> Task:
-        return list(filter(filter_condition, cls.task_list))[0]
+    def filter_task(cls, filter_condition: Callable[[Task], bool]) -> list[Task]:
+        return list(filter(filter_condition, cls.task_list))

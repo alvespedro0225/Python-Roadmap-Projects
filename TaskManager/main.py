@@ -32,7 +32,7 @@ marks = "todo", "ongoing", "completed"
             user_input = input()
 
             if not user_input:
-                print(f"Invalid input \n{user_input}\n")
+                print(f'Invalid input \n"{user_input}".\n')
                 continue
 
             argv = InputValidator.validate_input(user_input)
