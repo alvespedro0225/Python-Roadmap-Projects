@@ -24,7 +24,7 @@ class TaskManager(BaseModel):
     @classmethod
     @validate_call
     def add_task(cls, task_or_description, status = "todo" ) -> None:
-        if type(task_or_description) == Task:
+        if isinstance(task_or_description, Task):
             cls.task_list.append(task_or_description)
         else:
             task = Task(description=task_or_description, status=status)
@@ -71,7 +71,7 @@ class TaskManager(BaseModel):
         cls.task_list = []
         if reset:
             Task.reset()
-            print(f"App data has been reset.\n")
+            print("App data has been reset.\n")
         else:
             print("All tasks have been cleared.\n")
 
