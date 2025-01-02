@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% if request.method == "GET" %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="from-unit">Choose the unit to convert from:</label>
+            <select name="from-unit" id="from-unit">
+                <option value="mm">milimeter</option>
+                <option value="cm">centimeter</option>
+                <option value="meter">meter</option>
+                <option value="km">kilometer</option>
+                <option value="inch">inch</option>
+                <option value="foot">foot</option>
+                <option value="yard">yard</option>
+                <option value="mile">mile</option>
+            </select>
+        </div>
+        <div>
+            <label for="to-unit">Choose the unit to convert to:</label>
+            <select name="to-unit" id="to-unit">
+                <option value="mm">milimeter</option>
+                <option value="cm">centimeter</option>
+                <option value="meter">meter</option>
+                <option value="km">kilometer</option>
+                <option value="inch">inch</option>
+                <option value="foot">foot</option>
+                <option value="yard">yard</option>
+                <option value="mile">mile</option>            
+            </select>
+        </div>
+        <div>
+            <label for="value">Enter the length to convert: </label>
+            <input type="number" min=0 name="value">
+        </div>
+        <div>
+            <button type="submit">Convert</button>
+        </div>
+    </form>
+    {% endif %}
+    
+    
+    {% if request.method == "POST" %}
+    
+    <div>
+        {{ previousValue }} {{previousUnit}} equals {{newValue}} {{newUnit}}
+    </div>
+    <div>
+        <button type="button" onclick="window.location.href ={% url 'Units:length'%}">Go back</button>
+    </div>
+    {% endif %}
+        
+        
+</body>
+</html>
