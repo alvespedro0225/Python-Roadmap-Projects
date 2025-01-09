@@ -103,12 +103,12 @@ class LenghtView(View):
     UNITS: dict[str, float] = {
         "mm": 1000.0,
         "cm": 100.0,
-        "inch": 39.3701,
-        "foot": 3.32084,
-        "yard": 1.09361,
+        "inch": 39.3_701,
+        "foot": 3.32_084,
+        "yard": 1.09_361,
         "meter": 1.0,
         "km": 0.001,
-        "miles": 0.000621371,
+        "miles": 0.000_621_371,
     }
 
     def get(self, request) -> HttpResponse:
@@ -140,7 +140,7 @@ class LenghtView(View):
 class WeightView(View):
 
     UNITS: dict[str, float] = {
-        "mg": 1000000.0,
+        "mg": 1000_000.0,
         "g": 1000.0,
         "kg": 1.0,
         "ounce": 35.274,
