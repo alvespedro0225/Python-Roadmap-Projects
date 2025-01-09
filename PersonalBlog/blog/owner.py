@@ -1,4 +1,10 @@
-from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
+from django.views.generic import (
+    CreateView,
+    UpdateView,
+    DeleteView,
+    ListView,
+    DetailView,
+)
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -14,6 +20,7 @@ class OwnerDetailView(DetailView):
     Sub-class the DetailView to pass the request to the form.
     """
 
+
 class OwnerCreateView(LoginRequiredMixin, CreateView):
     """
     Sub-class of the CreateView to automatically pass the Request to the Form
@@ -22,7 +29,7 @@ class OwnerCreateView(LoginRequiredMixin, CreateView):
 
     # Saves the form instance, sets the current object for the view, and redirects to get_success_url().
     def form_valid(self, form):
-        print('form_valid called')
+        print("form_valid called")
         object = form.save(commit=False)
         object.author = self.request.user
         object.save()
@@ -36,7 +43,7 @@ class OwnerUpdateView(LoginRequiredMixin, UpdateView):
     """
 
     def get_queryset(self):
-        """ Limit a User to only modifying their own data. """
+        """Limit a User to only modifying their own data."""
         qs = super(OwnerUpdateView, self).get_queryset()
         return qs.filter(author=self.request.user)
 

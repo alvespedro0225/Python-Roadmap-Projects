@@ -15,14 +15,36 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Article',
+            name="Article",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=30, verbose_name='Title')),
-                ('content', models.TextField(max_length=300, verbose_name='Content')),
-                ('publishDate', models.DateTimeField(auto_now_add=True, verbose_name='Published Date')),
-                ('updatedDate', models.DateTimeField(auto_now=True, verbose_name='Last Updated')),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=30, verbose_name="Title")),
+                ("content", models.TextField(max_length=300, verbose_name="Content")),
+                (
+                    "publishDate",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Published Date"
+                    ),
+                ),
+                (
+                    "updatedDate",
+                    models.DateTimeField(auto_now=True, verbose_name="Last Updated"),
+                ),
+                (
+                    "author",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]
