@@ -1,0 +1,61 @@
+{% extends "./base.html" %} {% block title %} <title>Articles</title>
+{%endblock %} {% block content %}
+<p></p>
+<table class="table table-bordered table-light">
+  <thead class="table-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Last Updated</th>
+      <th scope="col">Published Date</th>
+      {% if user.is_staff %}
+      <th scope="col">Update</th>
+      <th scope="col">Delete</th>
+      {% endif %}
+    </tr>
+  </thead>
+  <tbody>
+    <div>
+      {% for article in article_list %}
+      <tr>
+        <th scope="row">{{ article.id }}</th>
+        <td>
+          <a
+            class="page-link"
+            href="{% url 'blog:article-detail' pk=article.id %}"
+            >{{article.title}}</a
+          >
+        </td>
+        <td>{{article.updatedDate}}</td>
+        <td>{{article.publishDate}}</td>
+        {% if user.is_staff %}
+        <td>
+          <a
+            class="btn btn-success"
+            href="{% url 'blog:article-update' pk=article.id %}"
+            class="link-primary"
+            >Update</a
+          >
+        </td>
+        <td>
+          <a
+            class="btn btn-danger"
+            href="{% url 'blog:article-delete' pk=article.id %}"
+            class="link-primary"
+            >Delete</a
+          >
+        </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </div>
+  </tbody>
+</table>
+
+{% if user.is_staff %}
+<div>
+  <a class="btn btn-primary" href="{% url 'blog:article-create' %}"
+    >Make a new post!</a
+  >
+</div>
+{% endif %} {% endblock %}
